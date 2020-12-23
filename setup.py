@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import subprocess
 
 
@@ -22,6 +22,6 @@ setup(
     author='James Ridgway',
     url='https://github.com/jamesridgway/devdeck_core',
     license='MIT',
-    packages=['devdeck.core'],
+    packages=find_packages(),
     install_requires=install_reqs
 )

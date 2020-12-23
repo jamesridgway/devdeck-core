@@ -23,6 +23,5 @@ setup(
     url='https://github.com/jamesridgway/devdeck_core',
     license='MIT',
     packages=['devdeck.core'],
-    scripts=['bin/devdeck'],
     install_requires=install_reqs
 )

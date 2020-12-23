@@ -1,6 +1,6 @@
 from assertpy import assert_that
 
-from devdeck.core.settings.control_validation_error import ControlValidationError
+from devdeck_core.settings.control_validation_error import ControlValidationError
 
 
 class TestControlValidationError:

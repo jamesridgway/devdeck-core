@@ -7,7 +7,7 @@ class TextRenderer:
     def __init__(self, renderer, text):
         self.renderer = renderer
         self.text = text
-        self.font_filename = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../assets", 'Roboto-Regular.ttf'))
+        self.font_filename = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets", 'Roboto-Regular.ttf'))
         self._font_size = 120
         self.fill = 'white'
         self.center_vertical = None

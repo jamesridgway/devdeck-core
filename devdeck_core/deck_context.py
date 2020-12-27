@@ -48,7 +48,7 @@ class DeckContext:
             font_size = kwargs['font_size']
         if 'fill' in kwargs:
             fill = kwargs['fill']
-        font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), "../assets", 'Roboto-Regular.ttf'), font_size)
+        font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), "assets", 'Roboto-Regular.ttf'), font_size)
 
         image = Image.new("RGB", (512, 512))
         draw = ImageDraw.Draw(image)

@@ -7,7 +7,7 @@ class BadgeCountRenderer:
     def __init__(self, renderer, count):
         self.renderer = renderer
         self.text = str(count)
-        self.font_filename = os.path.join(os.path.dirname(__file__), "../../assets", 'Roboto-Regular.ttf')
+        self.font_filename = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets", 'Roboto-Regular.ttf'))
         self._font_size = 100
         self.fill = 'white'
         self.circle_size = 192

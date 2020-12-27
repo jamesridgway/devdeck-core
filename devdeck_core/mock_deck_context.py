@@ -1,42 +1,41 @@
+from unittest.mock import MagicMock
+
+from PIL import ImageChops, Image
 from assertpy import assert_that
 
-
-class MockDeckContext:
-    """
-    A mock deck context used for designed for use in unit tests for testing controls.
-    """
-
-    def __init__(self):
-        self.__reset()
-
-    def set_icon(self, key_no, icon_filename):
-        self.__reset()
-        self.icon_filename = icon_filename
-
-    def set_icon_native(self, key_no, icon):
-        self.__reset()
-        pass
-
-    def render_text(self, key_no, text, **kwargs):
-        self.__reset()
-        self.render_text_text = text
-        self.render_text_options = kwargs
-
-    def rendered_text(self, text, **kwargs):
-        assert_that(text).described_as('rendered text').is_equal_to(self.render_text_text)
-        assert_that(kwargs).described_as('rendered text options').is_equal_to(self.render_text_options)
-
-    def get_icon(self):
-        return self.icon_filename
-
-    def __reset(self):
-        self.icon_filename = None
-        self.render_text_text = None
-        self.render_text_options = None
+from devdeck_core.deck_context import DeckContext
+from devdeck_core.renderer import Renderer
 
 
 def mock_context(control):
     return MockDeckContextManager(control)
+
+
+def assert_rendered(ctx, image_filename_or_renderer):
+    if isinstance(image_filename_or_renderer, str):
+        assert_that(ImageChops.difference(ctx.get_image(), Image.open(image_filename_or_renderer)
+                                          .convert('RGB')).getbbox()).is_none()
+        return
+    if isinstance(image_filename_or_renderer, Renderer):
+        assert_that(ImageChops.difference(ctx.get_image(), image_filename_or_renderer.render()).getbbox()).is_none()
+        return
+    raise AttributeError('Unexpected type for image_filename_or_renderer')
+
+
+class MockDeck:
+    def key_count(self):
+        return 15
+
+    def set_key_image(self, key_no, image):
+        pass
+
+    def key_image_format(self):
+        return {
+            'size': (72, 72),
+            'format': 'BMP',
+            'flip': (True, True),
+            'rotation': 0,
+        }
 
 
 class MockDeckContextManager:
@@ -44,7 +43,9 @@ class MockDeckContextManager:
         self.control = control
 
     def __enter__(self):
-        ctx = MockDeckContext()
+        devdeck = MagicMock()
+        deck = MockDeck()
+        ctx = DeckContext(devdeck, deck)
         self.control.set_deck_context(ctx)
         return ctx
 

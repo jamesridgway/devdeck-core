@@ -1,1 +1,2 @@
 include devdeck_core/assets/*
+include requirements.txt

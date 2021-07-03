@@ -32,7 +32,11 @@ class DeckController(DeckControl):
         deck_context.reset_deck()
         for key_no, control in self.controls.items():
             control.set_deck_context(deck_context)
-            control.initialize()
+            try:
+                control.initialize()
+            except Exception as ex:
+                self.__logger.error("Key %s (%s) initialize() raised an unhandled exception: %s",
+                                    key_no, type(self).__name__, str(ex))
 
     def pressed(self, key_no):
         if key_no not in self.controls:
@@ -40,7 +44,11 @@ class DeckController(DeckControl):
         if issubclass(type(self.controls[key_no]), DeckController):
             return
         self.__logger.info("Key %s pressed on %s", key_no, type(self).__name__)
-        self.controls[key_no].pressed()
+        try:
+            self.controls[key_no].pressed()
+        except Exception as ex:
+            self.__logger.error("Key %s (%s) pressed() raised an unhandled exception: %s",
+                                key_no, type(self).__name__, str(ex))
 
     def released(self, key_no):
         if key_no not in self.controls:
@@ -49,5 +57,9 @@ class DeckController(DeckControl):
             self.__deck_context.set_active_deck(self.controls[key_no])
             return
         self.__logger.info("Key %s released on %s", key_no, type(self).__name__)
-        self.controls[key_no].released()
+        try:
+            self.controls[key_no].released()
+        except Exception as ex:
+            self.__logger.error("Key %s (%s) released() raised an unhandled exception: %s",
+                                key_no, type(self).__name__, str(ex))
         self.__deck_context.pop_active_deck()

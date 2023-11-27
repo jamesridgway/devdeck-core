@@ -48,14 +48,14 @@ class TextRenderer:
         font = ImageFont.truetype(self.font_filename, self._font_size)
 
         draw = ImageDraw.Draw(self.renderer.img)
-        label_w, label_h = draw.textsize('%s' % self.text, font=font)
+        left, top, right, bottom = draw.textbbox((0, 0), '%s' % self.text, font=font)
 
         # Positioning
         label_pos = (self._x, self._y)
         if self.center_vertical is not None:
-            label_pos = (label_pos[0], ((self.renderer.img.height - label_h) // 2) + self.center_vertical)
+            label_pos = (label_pos[0], ((self.renderer.img.height - (bottom - top)) // 2) + self.center_vertical)
         if self.center_horizontal is not None:
-            label_pos = (((self.renderer.img.width - label_w) // 2) + self.center_horizontal, label_pos[1])
+            label_pos = (((self.renderer.img.width - (right - left)) // 2) + self.center_horizontal, label_pos[1])
 
         draw.text(label_pos, text=self.text, font=font, fill=self.fill, align=self.align)
 

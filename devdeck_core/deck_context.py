@@ -52,8 +52,8 @@ class DeckContext:
 
         image = Image.new("RGB", (512, 512))
         draw = ImageDraw.Draw(image)
-        label_w, label_h = draw.textsize('%s' % text, font=font)
-        label_pos = ((512 - label_w) // 2, (512 - label_h) // 2)
+        left, top, right, bottom = draw.textbbox((0, 0), '%s' % text, font=font)
+        label_pos = ((512 - (right - left)) // 2, (512 - (bottom - top)) // 2)
         draw.text(label_pos, text=text, font=font, fill=fill)
         self.set_key_image_native(key_no, image)
 

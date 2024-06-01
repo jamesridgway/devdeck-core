@@ -13,6 +13,8 @@ class EmojiRenderer:
         self.center_horizontal = None
         self._x = 0
         self._y = 0
+        self._width = None
+        self._height = None
 
     def x(self, x):
         self._x = x
@@ -30,6 +32,14 @@ class EmojiRenderer:
         self.center_horizontal = offset
         return self
 
+    def height(self, h):
+        self._height = h
+        return self
+
+    def width(self, w):
+        self._width = w
+        return self
+
     def end(self):
         emoji_filename = os.path.join(str(Path.home()), '.devdeck', 'emoji_cache', '{}_512.png'.format(self.emoji_name))
 
@@ -42,6 +52,14 @@ class EmojiRenderer:
 
         emoji_img = Image.open(emoji_filename)
 
-        self.renderer.img.paste(emoji_img, (0, 0))
+        if self._width is not None and self._height is not None:
+            emoji_img.thumbnail((self._width, self._height), Image.ANTIALIAS)
 
+        img_pos = (self._x, self._y)
+        if self.center_vertical is not None:
+            img_pos = (img_pos[0], ((self.renderer.img.height - emoji_img.height) // 2) + self.center_vertical)
+        if self.center_horizontal is not None:
+            img_pos = (((self.renderer.img.width - emoji_img.width) // 2) + self.center_horizontal, img_pos[1])
+
+        self.renderer.img.paste(emoji_img, img_pos)
         return self.renderer

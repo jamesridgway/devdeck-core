@@ -11,7 +11,7 @@ class DeckControlContextBlock(Exception):
 
 
 class DeckContextManager:
-    def __init__(self, deck_context, key_no):
+    def __init__(self, deck_context, key_no: int):
         self.deck_context = deck_context
         self.key_no = key_no
 
@@ -23,7 +23,7 @@ class DeckContextManager:
         else:
             return ControlContext(self.deck_context, self.key_no)
 
-    def trace(self, frame, event, arg):
+    def trace(self, frame, event, arg) -> DeckControlContextBlock:
         raise DeckControlContextBlock()
 
     def __exit__(self, type, value, traceback):
@@ -40,25 +40,25 @@ class DeckControl:
         self.settings = kwargs
         self.validate_settings()
 
-    def set_deck_context(self, deck_context):
+    async def set_deck_context(self, deck_context):
         self.__deck_context = deck_context
 
-    def clear_deck_context(self):
+    async def clear_deck_context(self):
         self.__deck_context = None
 
-    def deck_context(self):
+    def deck_context(self) -> DeckContextManager:
         return DeckContextManager(self.__deck_context, self.__key_no)
 
-    def dispose(self):
+    async def dispose(self):
         pass
 
-    def initialize(self):
+    async def initialize(self):
         pass
 
-    def pressed(self):
+    async def pressed(self):
         pass
 
-    def released(self):
+    async def released(self):
         pass
 
     def settings_schema(self):

@@ -29,16 +29,16 @@ class Renderer:
         draw = ImageDraw.Draw(self.img)
         draw.rectangle((0, 0, self.img.width, self.img.height), fill=color)
 
-    def badge_count(self, count):
+    def badge_count(self, count) -> BadgeCountRenderer:
         return BadgeCountRenderer(self, count)
 
-    def emoji(self, emoji_name):
+    def emoji(self, emoji_name) -> EmojiRenderer:
         return EmojiRenderer(self, emoji_name)
 
-    def image(self, filename):
+    def image(self, filename) -> ImageRenderer:
         return ImageRenderer(self, filename)
 
-    def text(self, text):
+    def text(self, text) -> TextRenderer:
         return TextRenderer(self, text)
 
     def colorize(self, color):

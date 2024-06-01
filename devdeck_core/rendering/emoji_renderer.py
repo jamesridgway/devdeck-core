@@ -6,7 +6,7 @@ from PIL import ImageDraw, Image
 
 
 class EmojiRenderer:
-    def __init__(self, renderer, emoji_name):
+    def __init__(self, renderer, emoji_name: str):
         self.renderer = renderer
         self.emoji_name = emoji_name.replace(':', '')
         self.center_vertical = None
@@ -22,11 +22,11 @@ class EmojiRenderer:
         self._y = y
         return self
 
-    def center_vertically(self, offset=0):
+    def center_vertically(self, offset: int = 0):
         self.center_vertical = offset
         return self
 
-    def center_horizontally(self, offset=0):
+    def center_horizontally(self, offset: int = 0):
         self.center_horizontal = offset
         return self
 

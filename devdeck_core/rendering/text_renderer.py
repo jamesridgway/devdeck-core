@@ -4,7 +4,7 @@ from PIL import ImageFont, ImageDraw
 
 
 class TextRenderer:
-    def __init__(self, renderer, text):
+    def __init__(self, renderer, text: str):
         self.renderer = renderer
         self.text = text
         self.font_filename = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets", 'Roboto-Regular.ttf'))
@@ -24,23 +24,23 @@ class TextRenderer:
         self._y = y
         return self
 
-    def center_vertically(self, offset=0):
+    def center_vertically(self, offset: int = 0):
         self.center_vertical = offset
         return self
 
-    def center_horizontally(self, offset=0):
+    def center_horizontally(self, offset: int = 0):
         self.center_horizontal = offset
         return self
 
-    def font_size(self, size):
+    def font_size(self, size: int):
         self._font_size = size
         return self
 
-    def color(self, color):
+    def color(self, color: str):
         self.fill = color
         return self
 
-    def text_align(self, align):
+    def text_align(self, align: str):
         self.align = align
         return self
 

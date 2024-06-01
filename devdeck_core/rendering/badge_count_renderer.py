@@ -4,7 +4,7 @@ from PIL import ImageFont, ImageDraw
 
 
 class BadgeCountRenderer:
-    def __init__(self, renderer, count):
+    def __init__(self, renderer, count: int):
         self.renderer = renderer
         self.text = str(count)
         self.font_filename = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets", 'Roboto-Regular.ttf'))
@@ -13,7 +13,7 @@ class BadgeCountRenderer:
         self.circle_size = 192
         self.corner_offset = 30
 
-    def font_size(self, size):
+    def font_size(self, size: int):
         self._font_size = size
         return self
 

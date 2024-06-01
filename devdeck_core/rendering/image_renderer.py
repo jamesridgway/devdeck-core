@@ -2,7 +2,7 @@ from PIL import Image
 
 
 class ImageRenderer:
-    def __init__(self, renderer, filename):
+    def __init__(self, renderer, filename: str):
         self.renderer = renderer
         self.filename = filename
         self._x = 0
@@ -12,27 +12,27 @@ class ImageRenderer:
         self.center_vertical = None
         self.center_horizontal = None
 
-    def x(self, x):
+    def x(self, x: int):
         self._x = x
         return self
 
-    def y(self, y):
+    def y(self, y: int):
         self._y = y
         return self
 
-    def center_vertically(self, offset=0):
+    def center_vertically(self, offset: int = 0):
         self.center_vertical = offset
         return self
 
-    def center_horizontally(self, offset=0):
+    def center_horizontally(self, offset: int = 0):
         self.center_horizontal = offset
         return self
 
-    def height(self, h):
+    def height(self, h: int):
         self._height = h
         return self
 
-    def width(self, w):
+    def width(self, w: int):
         self._width = w
         return self
 
